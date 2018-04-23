@@ -1,0 +1,39 @@
+<span class="card-title white-text">Summoner Information</span>
+<br>
+<ul *ngIf="errors">
+  <li *ngFor="let err of errors">{{err}}</li>
+</ul>
+<div *ngIf="showInfo">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f.value);searchSummoner(f.value);">
+    <input class="center white-text" type="text" placeholder='{{placeholder}}' id="summonerName" name="summoner" (input)="onTxtChange($event.target.value)" [(ngModel)]="searchVal">
+  </form>
+  <br>
+  <form *ngIf="summonerData" (ngSubmit)="matchHistory(summonerData.accountId)">
+      <input class="col s3 offset-s3" [(ngModel)]="matchSearch" type="number" min=5 max=25 id="stop" step="5" name="stop"/>
+      <button class="btn waves-effect waves-light" type="submit">View last {{matchSearch}} Games</button>
+  </form>
+  <br>
+  <div *ngIf="matchlist">
+    <table>
+      <tr>
+        <th>View Game</th>
+        <th>Champion</th>
+        <th>Lane</th>
+        <th>Format</th>
+        <th>Season</th>
+      </tr>
+      <tr *ngFor="let data of matchlist.matches">
+        <td><button class="btn waves-effect waves-light" (click)="toggleHide()" [routerLink]="['details', data.gameId]">{{data.timestamp}}</button></td>
+        <td>{{data.champion}}</td>
+        <td>{{data.lane}}</td>
+        <td>{{data.queue}}</td>
+        <td>{{data.season}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+<router-outlet></router-outlet>
+<div *ngIf="showMatch">
+  <button><a href="/">New Search</a></button>
+  <button  (click)="toggleViews()" [routerLink]="['']">Back</button>
+</div>

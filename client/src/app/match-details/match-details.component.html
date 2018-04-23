@@ -1,0 +1,20 @@
+<div *ngIf="">  
+  <table>
+    <tr>
+      <th>View Game</th>
+      <th>Champion</th>
+      <th>Lane</th>
+      <th>Format</th>
+      <th>Season</th>
+    </tr>
+    <tr *ngFor="let data of matchlist.matches">
+      <td>
+        <button class="btn waves-effect waves-light" (click)="toggleHide()" [routerLink]="['details', data.gameId]">{{data.timestamp}}</button>
+      </td>
+      <td>{{data.champion}}</td>
+      <td>{{data.lane}}</td>
+      <td>{{data.queue}}</td>
+      <td>{{data.season}}</td>
+    </tr>
+  </table>
+</div>
